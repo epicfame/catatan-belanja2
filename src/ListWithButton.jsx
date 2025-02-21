@@ -28,7 +28,7 @@ const ListWithButton = ({ items, checkList, deleteList }) => {
                 <td>
                   <button
                     onClick={() => deleteList(item.id)}
-                    className="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600 flex items-center gap-2"
+                    className="btn-danger"
                   >
                     Delete
                   </button>
