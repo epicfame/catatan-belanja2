@@ -1,32 +1,76 @@
 import React from "react";
+import "./app.css";
 
 const ListWithButton = ({ items, checkList, deleteList }) => {
   return (
     <div className="p-4 bg-white shadow-lg rounded-lg">
       <h2 className="text-xl font-bold mb-4">Item List</h2>
-      <ul className="space-y-2" style={{listStyle: "none"}}>
-        {items.map((item, index) => (
-          <li key={index} className="flex justify-between items-center p-2 border-b">
-            <input type="checkbox" onClick={() => checkList(index)} />
-            <span>{item}</span>
-            {/* <button
-              onClick={() => onButtonClick(item)}
-              className="bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-600"
-            >
-              Checkbox
-            </button> */}
-
-
-            <button
-              onClick={() => deleteList(index)}
-              className="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600 flex items-center gap-2"
-            >
-              Delete
-            </button>
-
-          </li>
+      <hr />
+      <h3 className="text-lg font-bold mt-4">Outstanding</h3>
+      <table>
+      {/* <ul className="space-y-2" style={{listStyle: "none"}}> */}
+        {items.filter(item => !item.isChecked)
+        .map((item, index) => (
+          // <li key={item.id} >
+              <tr>
+                <td>
+                  <input 
+                    type="checkbox" 
+                    checked={item.isChecked} 
+                    onChange={() => checkList(item.id)} 
+                  />
+                </td>
+                <td>
+                  <span className={`ml-2 ${item.isChecked ? "line-through" : ""}`}>
+                    {item.value}
+                  </span>
+                </td>
+                <td>
+                  <button
+                    onClick={() => deleteList(item.id)}
+                    className="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600 flex items-center gap-2"
+                  >
+                    Delete
+                  </button>
+                </td>
+              </tr>
+          // </li>
         ))}
-      </ul>
+      {/* </ul> */}
+
+      </table>
+
+      <hr />
+      
+      <h3 className="text-lg font-bold mt-4">Completed</h3>
+      <table>
+
+        {items.filter(item => item.isChecked)
+        .map((item, index) => (
+          <tr>
+            <td>
+              <input 
+                type="checkbox" 
+                checked={item.isChecked} 
+                onChange={() => checkList(item.id)} 
+              />
+            </td>
+            <td>
+              <span className={`ml-2 ${item.isChecked ? "line-through" : ""}`}>
+                {item.value}
+              </span>
+            </td>
+            <td>
+              <button
+                onClick={() => deleteList(item.id)}
+                className="btn-danger"
+              >
+                Delete
+              </button>
+            </td>
+          </tr>
+        ))}
+      </table>
     </div>
   );
 };
